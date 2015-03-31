@@ -2,7 +2,11 @@
 <resources>
 
     <string name="app_name">DreamLand</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <!--登录-->
+    <string name="phone_hint">请输入手机号</string>
+    <string name="password_hint">请输入密码</string>
+    <string name="login">登录</string>
+    <!--注册-->
+    <string name="register_now">马上注册</string>
 
 </resources>
