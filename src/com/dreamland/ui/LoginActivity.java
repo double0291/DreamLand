@@ -1,6 +1,5 @@
 package com.dreamland.ui;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +8,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class LoginActivity extends Activity implements View.OnClickListener {
+import com.dreamland.R;
+import com.dreamland.base.BaseActivity;
+
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
     EditText mPhoneEditText, mPasswordEditText;
     TextView mRegisterNowTextView;
     Button mLoginButton;
@@ -34,7 +36,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login:
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(MainActivity.class);
                 break;
         }
     }

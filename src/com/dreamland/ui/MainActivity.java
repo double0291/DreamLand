@@ -4,7 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Window;
 
-public class MainActivity extends Activity {
+import com.dreamland.R;
+import com.dreamland.base.BaseActivity;
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
