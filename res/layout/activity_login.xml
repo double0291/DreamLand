@@ -20,6 +20,7 @@
 
     <Button
         android:id="@+id/login"
+        style="@style/ButtonBlue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/register_now"
