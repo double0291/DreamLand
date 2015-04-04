@@ -46,7 +46,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         for (Constants.HOME_CARD card : Constants.HOME_CARD.values()) {
             RelativeLayout cardView = (RelativeLayout) inflater.inflate(R.layout.card, null);
             // 设置宽高
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(cardWidth, cardHeight);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(cardWidth,
+                    cardHeight);
             // 与左边的间隔
             layoutParams.leftMargin = leftWidth;
             // 与顶部的间隔

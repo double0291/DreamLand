@@ -2,6 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#CCFFFF"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin">
@@ -24,23 +27,39 @@
         android:layout_marginBottom="30dp"
         android:text="@string/login" />
 
-    <EditText
+    <com.dreamland.widget.ClearableEditText
         android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_above="@+id/login"
         android:layout_marginBottom="30dp"
+        android:background="@android:color/white"
         android:ems="10"
         android:hint="@string/password_hint"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="12dp" />
 
-    <EditText
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/password"
+        android:background="@drawable/line" />
+
+    <com.dreamland.widget.ClearableEditText
         android:id="@+id/phone"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_above="@+id/password"
+        android:layout_above="@+id/line"
+        android:background="@android:color/white"
         android:ems="10"
         android:hint="@string/phone_hint"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:maxLength="11"
+        android:maxLines="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="12dp" />
 
 </RelativeLayout>
