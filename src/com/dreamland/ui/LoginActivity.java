@@ -1,6 +1,5 @@
 package com.dreamland.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;

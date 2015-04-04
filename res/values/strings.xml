@@ -8,5 +8,9 @@
     <string name="login">登录</string>
     <!--注册-->
     <string name="register_now">马上注册</string>
+    <!--主页-->
+    <string name="video">视频</string>
+    <string name="game">游戏</string>
+    <string name="mine">我的</string>
 
 </resources>

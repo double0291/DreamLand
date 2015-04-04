@@ -10,4 +10,9 @@ public class Constants {
     // 应用名
     public static final String APP_NAME = "DreamLand";
 
+    // 主页
+    public static enum HOME_CARD {
+        VIDEO, GAME, MINE
+    }
+
 }
