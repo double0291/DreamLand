@@ -7,10 +7,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.dreamland.R;
 import com.dreamland.base.BaseActivity;
+import com.dreamland.util.Constants;
+import com.dreamland.util.Logger;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener,
+        Response.Listener<String>, Response.ErrorListener {
     EditText mPhoneEditText, mPasswordEditText;
     TextView mRegisterNowTextView;
     Button mLoginButton;
@@ -22,6 +28,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         setContentView(R.layout.activity_login);
 
         initView();
+        sendRequest();
     }
 
     private void initView() {
@@ -32,6 +39,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mLoginButton.setOnClickListener(this);
     }
 
+    private void sendRequest() {
+        StringRequest request = new StringRequest(Constants.HttpCmd.TEST, "http://www.baidu.com",
+                this, this);
+        app.mRequestQueue.add(request);
+    }
+
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.login:
@@ -40,4 +53,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
+    @Override
+    public void onErrorResponse(Constants.HttpCmd cmd, VolleyError error) {
+        Logger.d(error.toString(), false);
+    }
+
+    @Override
+    public void onResponse(Constants.HttpCmd cmd, String response) {
+        Logger.d(response, false);
+    }
 }
