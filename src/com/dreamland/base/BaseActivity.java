@@ -10,7 +10,7 @@ public class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        app = (BaseApplication) getApplication();
+        app = BaseApplication.mApp;
     }
 
     protected void startActivity(Class<?> clazz) {
