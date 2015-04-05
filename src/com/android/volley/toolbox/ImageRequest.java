@@ -22,6 +22,7 @@ import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyLog;
+import com.dreamland.util.Constants;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -71,7 +72,7 @@ public class ImageRequest extends Request<Bitmap> {
      */
     public ImageRequest(String url, Response.Listener<Bitmap> listener, int maxWidth, int maxHeight,
             ScaleType scaleType, Config decodeConfig, Response.ErrorListener errorListener) {
-        super(Method.GET, url, errorListener); 
+        super(Constants.HttpCmd.NULL, Method.GET, url, errorListener); 
         setRetryPolicy(
                 new DefaultRetryPolicy(IMAGE_TIMEOUT_MS, IMAGE_MAX_RETRIES, IMAGE_BACKOFF_MULT));
         mListener = listener;
@@ -216,7 +217,7 @@ public class ImageRequest extends Request<Bitmap> {
 
     @Override
     protected void deliverResponse(Bitmap response) {
-        mListener.onResponse(response);
+        mListener.onResponse(getCmd(), response);
     }
 
     /**

@@ -19,6 +19,7 @@ package com.android.volley.toolbox;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.dreamland.util.Constants;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
@@ -138,14 +139,14 @@ public class RequestFuture<T> implements Future<T>, Response.Listener<T>,
     }
 
     @Override
-    public synchronized void onResponse(T response) {
+    public synchronized void onResponse(Constants.HttpCmd cmd, T response) {
         mResultReceived = true;
         mResult = response;
         notifyAll();
     }
 
     @Override
-    public synchronized void onErrorResponse(VolleyError error) {
+    public synchronized void onErrorResponse(Constants.HttpCmd cmd, VolleyError error) {
         mException = error;
         notifyAll();
     }

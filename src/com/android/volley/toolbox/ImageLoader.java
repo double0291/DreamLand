@@ -21,11 +21,13 @@ import android.os.Handler;
 import android.os.Looper;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyError;
+import com.dreamland.util.Constants;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -98,7 +100,7 @@ public class ImageLoader {
             final int defaultImageResId, final int errorImageResId) {
         return new ImageListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(Constants.HttpCmd cmd, VolleyError error) {
                 if (errorImageResId != 0) {
                     view.setImageResource(errorImageResId);
                 }
@@ -251,12 +253,12 @@ public class ImageLoader {
             ScaleType scaleType, final String cacheKey) {
         return new ImageRequest(requestUrl, new Listener<Bitmap>() {
             @Override
-            public void onResponse(Bitmap response) {
+            public void onResponse(Constants.HttpCmd cmd, Bitmap response) {
                 onGetImageSuccess(cacheKey, response);
             }
         }, maxWidth, maxHeight, scaleType, Config.RGB_565, new ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(Constants.HttpCmd cmd, VolleyError error) {
                 onGetImageError(cacheKey, error);
             }
         });
@@ -399,6 +401,8 @@ public class ImageLoader {
 
         /** List of all of the active ImageContainers that are interested in the request */
         private final LinkedList<ImageContainer> mContainers = new LinkedList<ImageContainer>();
+        
+        public Constants.HttpCmd mCmd;
 
         /**
          * Constructs a new BatchedImageRequest object
@@ -407,6 +411,7 @@ public class ImageLoader {
          */
         public BatchedImageRequest(Request<?> request, ImageContainer container) {
             mRequest = request;
+            mCmd = request.getCmd();
             mContainers.add(container);
         }
 
@@ -473,7 +478,7 @@ public class ImageLoader {
                                 container.mBitmap = bir.mResponseBitmap;
                                 container.mListener.onResponse(container, false);
                             } else {
-                                container.mListener.onErrorResponse(bir.getError());
+                                container.mListener.onErrorResponse(bir.mCmd, bir.getError());
                             }
                         }
                     }

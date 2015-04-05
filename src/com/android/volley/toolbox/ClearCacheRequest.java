@@ -20,6 +20,7 @@ import com.android.volley.Cache;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.dreamland.util.Constants;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -38,7 +39,7 @@ public class ClearCacheRequest extends Request<Object> {
      * or null for none
      */
     public ClearCacheRequest(Cache cache, Runnable callback) {
-        super(Method.GET, null, null);
+        super(Constants.HttpCmd.NULL, Method.GET, null, null);
         mCache = cache;
         mCallback = callback;
     }

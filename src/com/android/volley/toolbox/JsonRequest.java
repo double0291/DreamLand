@@ -22,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 import com.android.volley.VolleyLog;
+import com.dreamland.util.Constants;
 
 import java.io.UnsupportedEncodingException;
 
@@ -48,21 +49,21 @@ public abstract class JsonRequest<T> extends Request<T> {
      *
      * @deprecated Use {@link #JsonRequest(int, String, String, com.android.volley.Response.Listener, com.android.volley.Response.ErrorListener)}.
      */
-    public JsonRequest(String url, String requestBody, Listener<T> listener,
+    public JsonRequest(Constants.HttpCmd cmd, String url, String requestBody, Listener<T> listener,
             ErrorListener errorListener) {
-        this(Method.DEPRECATED_GET_OR_POST, url, requestBody, listener, errorListener);
+        this(cmd, Method.DEPRECATED_GET_OR_POST, url, requestBody, listener, errorListener);
     }
 
-    public JsonRequest(int method, String url, String requestBody, Listener<T> listener,
+    public JsonRequest(Constants.HttpCmd cmd, int method, String url, String requestBody, Listener<T> listener,
             ErrorListener errorListener) {
-        super(method, url, errorListener);
+        super(cmd, method, url, errorListener);
         mListener = listener;
         mRequestBody = requestBody;
     }
 
     @Override
     protected void deliverResponse(T response) {
-        mListener.onResponse(response);
+        mListener.onResponse(getCmd(), response);
     }
 
     @Override

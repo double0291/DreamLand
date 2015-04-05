@@ -24,6 +24,7 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 
 import com.android.volley.VolleyLog.MarkerLog;
+import com.dreamland.util.Constants;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -59,6 +60,11 @@ public abstract class Request<T> implements Comparable<Request<T>> {
 
     /** An event log tracing the lifetime of this request; for debugging. */
     private final MarkerLog mEventLog = MarkerLog.ENABLED ? new MarkerLog() : null;
+    
+    /**
+     * Command of the request
+     */
+    private Constants.HttpCmd mCmd;
 
     /**
      * Request method of this request.  Currently supports GET, POST, PUT, DELETE, HEAD, OPTIONS,
@@ -121,11 +127,11 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      * is provided by subclasses, who have a better idea of how to deliver an
      * already-parsed response.
      *
-     * @deprecated Use {@link #Request(int, String, com.android.volley.Response.ErrorListener)}.
+     * @deprecated Use {@link #Request(Constants.HttpCmd, int, String, com.android.volley.Response.ErrorListener)}.
      */
     @Deprecated
-    public Request(String url, Response.ErrorListener listener) {
-        this(Method.DEPRECATED_GET_OR_POST, url, listener);
+    public Request(Constants.HttpCmd cmd, String url, Response.ErrorListener listener) {
+        this(cmd, Method.DEPRECATED_GET_OR_POST, url, listener);
     }
 
     /**
@@ -134,7 +140,8 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      * delivery of responses is provided by subclasses, who have a better idea of how to deliver
      * an already-parsed response.
      */
-    public Request(int method, String url, Response.ErrorListener listener) {
+    public Request(Constants.HttpCmd cmd, int method, String url, Response.ErrorListener listener) {
+    	mCmd = cmd;
         mMethod = method;
         mUrl = url;
         mIdentifier = createIdentifier(method, url);
@@ -142,6 +149,13 @@ public abstract class Request<T> implements Comparable<Request<T>> {
         setRetryPolicy(new DefaultRetryPolicy());
 
         mDefaultTrafficStatsTag = findDefaultTrafficStatsTag(url);
+    }
+    
+    /**
+     * Return the command for this request
+     */
+    public Constants.HttpCmd getCmd() {
+    	return mCmd;
     }
 
     /**
@@ -602,7 +616,7 @@ public abstract class Request<T> implements Comparable<Request<T>> {
      */
     public void deliverError(VolleyError error) {
         if (mErrorListener != null) {
-            mErrorListener.onErrorResponse(error);
+            mErrorListener.onErrorResponse(mCmd, error);
         }
     }
 

@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader.ImageContainer;
 import com.android.volley.toolbox.ImageLoader.ImageListener;
+import com.dreamland.util.Constants;
 
 /**
  * Handles fetching an image from a URL as well as the life-cycle of the
@@ -160,7 +161,7 @@ public class NetworkImageView extends ImageView {
         ImageContainer newContainer = mImageLoader.get(mUrl,
                 new ImageListener() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
+                    public void onErrorResponse(Constants.HttpCmd cmd, VolleyError error) {
                         if (mErrorImageId != 0) {
                             setImageResource(mErrorImageId);
                         }

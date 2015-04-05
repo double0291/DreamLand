@@ -21,6 +21,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.dreamland.util.Constants;
 
 import java.io.UnsupportedEncodingException;
 
@@ -38,9 +39,9 @@ public class StringRequest extends Request<String> {
      * @param listener Listener to receive the String response
      * @param errorListener Error listener, or null to ignore errors
      */
-    public StringRequest(int method, String url, Listener<String> listener,
+    public StringRequest(Constants.HttpCmd cmd, int method, String url, Listener<String> listener,
             ErrorListener errorListener) {
-        super(method, url, errorListener);
+        super(cmd, method, url, errorListener);
         mListener = listener;
     }
 
@@ -51,13 +52,13 @@ public class StringRequest extends Request<String> {
      * @param listener Listener to receive the String response
      * @param errorListener Error listener, or null to ignore errors
      */
-    public StringRequest(String url, Listener<String> listener, ErrorListener errorListener) {
-        this(Method.GET, url, listener, errorListener);
+    public StringRequest(Constants.HttpCmd cmd, String url, Listener<String> listener, ErrorListener errorListener) {
+        this(cmd, Method.GET, url, listener, errorListener);
     }
 
     @Override
     protected void deliverResponse(String response) {
-        mListener.onResponse(response);
+        mListener.onResponse(getCmd(), response);
     }
 
     @Override

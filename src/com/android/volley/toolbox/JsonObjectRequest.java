@@ -21,6 +21,8 @@ import com.android.volley.ParseError;
 import com.android.volley.Response;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.dreamland.util.Constants;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,9 +43,9 @@ public class JsonObjectRequest extends JsonRequest<JSONObject> {
      * @param listener Listener to receive the JSON response
      * @param errorListener Error listener, or null to ignore errors.
      */
-    public JsonObjectRequest(int method, String url, String requestBody,
+    public JsonObjectRequest(Constants.HttpCmd cmd, int method, String url, String requestBody,
                              Listener<JSONObject> listener, ErrorListener errorListener) {
-        super(method, url, requestBody, listener,
+        super(cmd, method, url, requestBody, listener,
                 errorListener);
     }
 
@@ -53,8 +55,8 @@ public class JsonObjectRequest extends JsonRequest<JSONObject> {
      * @param listener Listener to receive the JSON response
      * @param errorListener Error listener, or null to ignore errors.
      */
-    public JsonObjectRequest(String url, Listener<JSONObject> listener, ErrorListener errorListener) {
-        super(Method.GET, url, null, listener, errorListener);
+    public JsonObjectRequest(Constants.HttpCmd cmd, String url, Listener<JSONObject> listener, ErrorListener errorListener) {
+        super(cmd, Method.GET, url, null, listener, errorListener);
     }
 
     /**
@@ -64,8 +66,8 @@ public class JsonObjectRequest extends JsonRequest<JSONObject> {
      * @param listener Listener to receive the JSON response
      * @param errorListener Error listener, or null to ignore errors.
      */
-    public JsonObjectRequest(int method, String url, Listener<JSONObject> listener, ErrorListener errorListener) {
-        super(method, url, null, listener, errorListener);
+    public JsonObjectRequest(Constants.HttpCmd cmd, int method, String url, Listener<JSONObject> listener, ErrorListener errorListener) {
+        super(cmd, method, url, null, listener, errorListener);
     }
 
     /**
@@ -77,9 +79,9 @@ public class JsonObjectRequest extends JsonRequest<JSONObject> {
      * @param listener Listener to receive the JSON response
      * @param errorListener Error listener, or null to ignore errors.
      */
-    public JsonObjectRequest(int method, String url, JSONObject jsonRequest,
+    public JsonObjectRequest(Constants.HttpCmd cmd, int method, String url, JSONObject jsonRequest,
             Listener<JSONObject> listener, ErrorListener errorListener) {
-        super(method, url, (jsonRequest == null) ? null : jsonRequest.toString(), listener,
+        super(cmd, method, url, (jsonRequest == null) ? null : jsonRequest.toString(), listener,
                 errorListener);
     }
 
@@ -89,9 +91,9 @@ public class JsonObjectRequest extends JsonRequest<JSONObject> {
      *
      * @see #JsonObjectRequest(int, String, org.json.JSONObject, com.android.volley.Response.Listener, com.android.volley.Response.ErrorListener)
      */
-    public JsonObjectRequest(String url, JSONObject jsonRequest, Listener<JSONObject> listener,
+    public JsonObjectRequest(Constants.HttpCmd cmd, String url, JSONObject jsonRequest, Listener<JSONObject> listener,
             ErrorListener errorListener) {
-        this(jsonRequest == null ? Method.GET : Method.POST, url, jsonRequest,
+        this(cmd, jsonRequest == null ? Method.GET : Method.POST, url, jsonRequest,
                 listener, errorListener);
     }
 
