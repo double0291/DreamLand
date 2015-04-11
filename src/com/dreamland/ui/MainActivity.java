@@ -44,7 +44,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         LayoutInflater inflater = LayoutInflater.from(this);
 
         for (Constants.HOME_CARD card : Constants.HOME_CARD.values()) {
-            RelativeLayout cardView = (RelativeLayout) inflater.inflate(R.layout.card, null);
+            RelativeLayout cardView = (RelativeLayout) inflater.inflate(R.layout.card_in_main,
+                    null);
             // 设置宽高
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(cardWidth,
                     cardHeight);
@@ -78,13 +79,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch ((Constants.HOME_CARD) v.getTag()) {
             case VIDEO:
-                Logger.d("video click", false);
-                break;
             case GAME:
-                Logger.d("game click", false);
-                break;
             case MINE:
-                Logger.d("mine click", false);
+                startActivity(ListActivity.class);
                 break;
 
         }
