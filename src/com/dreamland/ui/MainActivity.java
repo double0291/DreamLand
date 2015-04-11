@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -55,21 +56,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             layoutParams.topMargin = topMargin;
 
             cardView.setLayoutParams(layoutParams);
-
-            TextView text = (TextView) cardView.findViewById(R.id.text);
             // 加tag，用于点击事件
-            text.setTag(card);
-            text.setOnClickListener(MainActivity.this);
+            cardView.setTag(card);
+            cardView.setOnClickListener(MainActivity.this);
+
+            ImageView imageView = (ImageView) cardView.findViewById(R.id.image);
+            TextView text = (TextView) cardView.findViewById(R.id.text);
+
             //添加文字
             switch (card) {
                 case VIDEO:
                     text.setText(getString(R.string.video));
+                    imageView.setBackgroundResource(R.drawable.video);
                     break;
                 case GAME:
                     text.setText(getString(R.string.game));
+                    imageView.setBackgroundResource(R.drawable.game);
                     break;
                 case MINE:
                     text.setText(getString(R.string.mine));
+                    imageView.setBackgroundResource(R.drawable.mine);
                     break;
             }
             mContainer.addView(cardView);
