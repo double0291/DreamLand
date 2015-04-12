@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/card_background">
 
     <TextView
         android:id="@+id/text"
@@ -10,7 +12,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:padding="5dp"
-        android:textSize="20sp" />
+        android:textSize="20sp"/>
 
     <ImageView
         android:id="@+id/image"
@@ -18,5 +20,5 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/text"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/image_default" />
+        android:background="@drawable/image_default"/>
 </RelativeLayout>

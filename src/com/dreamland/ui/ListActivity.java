@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -54,7 +55,7 @@ public class ListActivity extends BaseActivity implements View.OnClickListener {
         LayoutInflater inflater = LayoutInflater.from(this);
 
         for (VideoBrief vb : mData) {
-            RelativeLayout cardView = (RelativeLayout) inflater.inflate(R.layout.card_in_main,
+            RelativeLayout cardView = (RelativeLayout) inflater.inflate(R.layout.card_in_list,
                     null);
             // 设置宽高
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mCardWidth,
@@ -65,12 +66,13 @@ public class ListActivity extends BaseActivity implements View.OnClickListener {
             layoutParams.topMargin = DisplayUtil.dp2px(TOP_MARGIN, getResources());
 
             cardView.setLayoutParams(layoutParams);
-
-            TextView text = (TextView) cardView.findViewById(R.id.text);
             // 加tag，用于点击事件
-            text.setTag(vb.getId());
-            text.setOnClickListener(ListActivity.this);
-            // 添加文字
+            cardView.setTag(vb.getId());
+            cardView.setOnClickListener(ListActivity.this);
+
+            ImageView imageView = (ImageView) cardView.findViewById(R.id.image);
+            imageView.setBackgroundResource(R.drawable.video);
+            TextView text = (TextView) cardView.findViewById(R.id.text);
             text.setText(vb.name);
 
             mContainer.addView(cardView);

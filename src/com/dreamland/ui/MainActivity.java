@@ -62,8 +62,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
             ImageView imageView = (ImageView) cardView.findViewById(R.id.image);
             TextView text = (TextView) cardView.findViewById(R.id.text);
-
-            //添加文字
             switch (card) {
                 case VIDEO:
                     text.setText(getString(R.string.video));
