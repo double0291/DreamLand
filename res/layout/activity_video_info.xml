@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg">
+
+    <!--加一层蒙板-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#9000"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingBottom="40dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:paddingTop="40dp">
+
+        <RelativeLayout
+            android:layout_width="120dp"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/play"
+                style="@style/ButtonGreen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="30dp"
+                android:text="@string/play"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/play"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/video"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="20dp">
+
+            <TextView
+                android:id="@+id/introduction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/introduction"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="9.2"
+                android:textColor="@android:color/holo_red_light"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/introduction"
+                android:layout_marginTop="30dp"
+                android:text="@string/test_intro"
+                android:textColor="#AFFF"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+

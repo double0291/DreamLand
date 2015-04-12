@@ -46,7 +46,7 @@ public class ListActivity extends BaseActivity implements View.OnClickListener {
         mData = new ArrayList<VideoBrief>(10);
         for (int i = 1; i <= 10; i++) {
             VideoBrief vb = new VideoBrief();
-            vb.name = "video " + i;
+            vb.name = "谍影重重";
             mData.add(vb);
         }
     }
@@ -54,7 +54,9 @@ public class ListActivity extends BaseActivity implements View.OnClickListener {
     private void updateView() {
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        for (VideoBrief vb : mData) {
+        int size = mData.size();
+        for (int i = 0; i < size; i++) {
+            VideoBrief vb = mData.get(i);
             RelativeLayout cardView = (RelativeLayout) inflater.inflate(R.layout.card_in_list,
                     null);
             // 设置宽高
@@ -62,6 +64,10 @@ public class ListActivity extends BaseActivity implements View.OnClickListener {
                     mCardHeight);
             // 与左边的间隔
             layoutParams.leftMargin = DisplayUtil.dp2px(LEFT_MARGIN, getResources());
+            // 最后一个与右边有间隔
+            if (i == size - 1) {
+                layoutParams.rightMargin = DisplayUtil.dp2px(LEFT_MARGIN, getResources());
+            }
             // 与顶部的间隔
             layoutParams.topMargin = DisplayUtil.dp2px(TOP_MARGIN, getResources());
 
@@ -81,6 +87,6 @@ public class ListActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-
+        startActivity(VideoInfoActivity.class);
     }
 }
