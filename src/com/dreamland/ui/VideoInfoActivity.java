@@ -28,6 +28,7 @@ public class VideoInfoActivity extends BaseActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.play:
+                startActivity(VideoPlayActivity.class);
                 break;
         }
     }
