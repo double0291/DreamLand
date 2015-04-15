@@ -1,4 +1,4 @@
-package com.dreamland.URLDrawable.download;
+package com.dreamland.urldrawable.download;
 
 import android.graphics.Bitmap;
 import android.media.ExifInterface;

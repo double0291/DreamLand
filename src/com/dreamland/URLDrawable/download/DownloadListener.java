@@ -1,4 +1,4 @@
-package com.dreamland.URLDrawable.download;
+package com.dreamland.urldrawable.download;
 
 public interface DownloadListener {
     /**

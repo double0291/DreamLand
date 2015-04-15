@@ -1,4 +1,4 @@
-package com.dreamland.URLDrawable;
+package com.dreamland.urldrawable;
 
 import android.graphics.drawable.Drawable;
 

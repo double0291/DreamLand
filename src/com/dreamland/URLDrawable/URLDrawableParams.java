@@ -1,4 +1,4 @@
-package com.dreamland.URLDrawable;
+package com.dreamland.urldrawable;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.support.v4.util.LruCache;
 
-import com.dreamland.URLDrawable.download.LocalFileDownloader;
-import com.dreamland.URLDrawable.download.ProtocolDownloader;
+import com.dreamland.urldrawable.download.LocalFileDownloader;
+import com.dreamland.urldrawable.download.ProtocolDownloader;
 
 import java.util.HashMap;
 import java.util.Hashtable;
