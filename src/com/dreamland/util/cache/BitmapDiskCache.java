@@ -36,7 +36,8 @@ public class BitmapDiskCache extends DiskCache<Bitmap> {
 		super(cacheSize);
 	}
 
-	public final boolean put(String key, Bitmap value, Bitmap.CompressFormat format) {
+	@Override
+	public final boolean put(String key, Bitmap value) {
 		if (TextUtils.isEmpty(key) || value == null) {
 			throw new NullPointerException("key == null || value == null");
 		}
@@ -48,9 +49,11 @@ public class BitmapDiskCache extends DiskCache<Bitmap> {
 					DEFAULT_BUFFER_SIZE);
 			try {
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				if (Bitmap.CompressFormat.JPEG == format) {
+				String lowerUrl = key.toLowerCase();
+				// 根据URL后缀压缩
+				if (lowerUrl.endsWith("jpg") || lowerUrl.endsWith("jpeg")) {
 					value.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-				} else if (Bitmap.CompressFormat.PNG == format) {
+				} else if (lowerUrl.endsWith("png")) {
 					value.compress(Bitmap.CompressFormat.PNG, 100, baos);
 				} else {
 					throw new NullPointerException("Bitmap.CompressFormat invalid");
@@ -70,10 +73,10 @@ public class BitmapDiskCache extends DiskCache<Bitmap> {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 		return false;
 	}
 
+	@Override
 	public final Bitmap get(String key) {
 		if (TextUtils.isEmpty(key)) {
 			throw new NullPointerException("key == null");
@@ -96,18 +99,9 @@ public class BitmapDiskCache extends DiskCache<Bitmap> {
 		}
 		return null;
 	}
-
+	
 	@Override
 	String getFolderName() {
 		return FOLDER_NAME;
-	}
-
-	/**
-	 * 把Bitmap塞入磁盘缓存，需要传入Bitmap的类型，JPEG或PNG，此方法废弃
-	 */
-	@Override
-	@Deprecated
-	boolean put(String key, Bitmap value) {
-		return false;
 	}
 }
