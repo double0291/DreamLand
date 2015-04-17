@@ -13,7 +13,6 @@ import com.dreamland.R;
 import com.dreamland.base.BaseActivity;
 import com.dreamland.util.Constants;
 import com.dreamland.util.DisplayUtil;
-import com.dreamland.util.Logger;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     LinearLayout mContainer;
