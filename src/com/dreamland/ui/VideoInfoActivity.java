@@ -23,6 +23,14 @@ public class VideoInfoActivity extends BaseActivity implements View.OnClickListe
     private void initView() {
         mPlayBtn = (Button) findViewById(R.id.play);
         mPlayBtn.setOnClickListener(this);
+        /*
+        *DownloadRequest request = new DownloadRequest()
+                            .setDownloadListener(this)
+                            .setRetryTime(3)
+                            .setAllowedNetworkTypes(this, DownloadRequest.NETWORK_WIFI)
+                            .setUrl(mUrl);
+                    app.mDownloadManager.add(request);
+        */
     }
 
     public void onClick(View v) {

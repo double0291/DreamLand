@@ -14,6 +14,7 @@ import com.android.volley.toolbox.ImageLoader.ImageContainer;
 import com.android.volley.toolbox.Volley;
 import com.dreamland.R;
 import com.dreamland.database.EntityManagerFactory;
+import com.dreamland.download.DownloadManager;
 import com.dreamland.util.Constants.HttpCmd;
 import com.dreamland.util.cache.BitmapCache;
 
@@ -28,10 +29,12 @@ public class BaseApplication extends Application {
 
     private EntityManagerFactory mEntityManagerFactory;
 
-    // Volley网络请求
+    // 网络请求队列
     public RequestQueue mRequestQueue;
     // 异步图片加载器
  	public ImageLoader mImageLoader;
+    // 文件下载队列
+    public DownloadManager mDownloadManager;
 
     @Override
     public void onCreate() {
@@ -47,6 +50,7 @@ public class BaseApplication extends Application {
 
         mRequestQueue = Volley.newRequestQueue(this);
         mImageLoader = new ImageLoader(mRequestQueue, new BitmapCache());
+        mDownloadManager = new DownloadManager();
     }
 
     public String getUin() {

@@ -129,7 +129,7 @@ public class DownloadRequestQueue {
      * @param downloadUrl download url
      * @return true if download has canceled, otherwise return false
      */
-    protected boolean cancel(int downloadUrl) {
+    protected boolean cancel(String downloadUrl) {
         synchronized (mCurrentRequests) {
             for (DownloadRequest request : mCurrentRequests) {
                 if (request.getUrl().equals(downloadUrl)) {

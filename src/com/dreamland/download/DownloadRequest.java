@@ -322,6 +322,10 @@ public class DownloadRequest implements Comparable<DownloadRequest> {
             filename = mTimestamp + ".down";
         }
 
+        File dir = new File(DEFAULT_DIR);
+        if (!dir.exists())
+            dir.mkdir();
+
         return DEFAULT_DIR + File.separator + filename;
     }
 

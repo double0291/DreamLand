@@ -103,12 +103,12 @@ public class DownloadManager {
     }
 
     /**
-     * Cancel the download according to download id.
+     * Cancel the download according to download url.
      *
-     * @param downloadId download id
+     * @param downloadUrl download url
      */
-    public void cancel(int downloadId) {
-        mDownloadRequestQueue.cancel(downloadId);
+    public void cancel(String downloadUrl) {
+        mDownloadRequestQueue.cancel(downloadUrl);
     }
 
     /**
