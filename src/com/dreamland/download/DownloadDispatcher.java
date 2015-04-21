@@ -316,7 +316,7 @@ public class DownloadDispatcher extends Thread {
                 case HTTP_TEMP_REDIRECT:
                 case HTTP_SEE_OTHER:
                     if (mRedirectionCount++ < MAX_REDIRECTION) {
-                        Log.i(TAG, "redirect for download id: " + request.getDownloadId());
+                        Log.i(TAG, "redirect for download url: " + request.getUrl());
 					    /* take redirect url and call executeDownload recursively */
                         String redirectUrl = conn.getHeaderField(LOCATION);
                         request.setUrl(redirectUrl);
@@ -374,10 +374,9 @@ public class DownloadDispatcher extends Thread {
                 int length;
 
                 while (true) {
-					/* if the request has canceld, stop the downloading */
+					/* if the request has cancelled, stop the downloading */
                     if (Thread.currentThread().isInterrupted() || request.isCanceled()) {
-                        Log.i(TAG, "download has canceled, download id: " + request.getDownloadId
-                                ());
+                        Log.i(TAG, "download has canceled, download url: " + request.getUrl());
                         request.finish();
                         return;
                     }

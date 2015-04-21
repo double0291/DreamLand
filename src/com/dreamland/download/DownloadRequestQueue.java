@@ -12,7 +12,7 @@ import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * Download request queue, this is designed according to RequestQueue in Andoird-Volley.
+ * Download request queue, this is designed according to RequestQueue in Android-Volley.
  */
 public class DownloadRequestQueue {
     private static final String TAG = DownloadRequestQueue.class.getSimpleName();
@@ -56,7 +56,7 @@ public class DownloadRequestQueue {
     private AtomicInteger mSequenceGenerator = new AtomicInteger();
 
     /**
-     * Default download reuqest queue.
+     * Default download request queue.
      */
     public DownloadRequestQueue() {
         this(DEFAULT_DOWNLOAD_THREAD_POOL_SIZE);
@@ -107,8 +107,8 @@ public class DownloadRequestQueue {
      */
     protected void add(DownloadRequest request) {
 		/* if the request is downloading, do nothing */
-        if (query(request.getDownloadId()) != DownloadState.INVALID) {
-            Log.i(TAG, "the download requst is in downloading");
+        if (query(request.getUrl()) != DownloadState.INVALID) {
+            Log.i(TAG, "the download request is in downloading");
             return;
         }
 		
@@ -126,13 +126,13 @@ public class DownloadRequestQueue {
     /**
      * Cancel a download in progress.
      *
-     * @param downloadId download id
+     * @param downloadUrl download url
      * @return true if download has canceled, otherwise return false
      */
-    protected boolean cancel(int downloadId) {
+    protected boolean cancel(int downloadUrl) {
         synchronized (mCurrentRequests) {
             for (DownloadRequest request : mCurrentRequests) {
-                if (request.getDownloadId() == downloadId) {
+                if (request.getUrl().equals(downloadUrl)) {
                     request.cancel();
                     return true;
                 }
@@ -167,13 +167,13 @@ public class DownloadRequestQueue {
     /**
      * To check if the request is downloading according to download id.
      *
-     * @param downloadId download id
+     * @param downloadUrl download url
      * @return true if the request is downloading, otherwise return false
      */
-    protected DownloadState query(int downloadId) {
+    protected DownloadState query(String downloadUrl) {
         synchronized (mCurrentRequests) {
             for (DownloadRequest request : mCurrentRequests) {
-                if (request.getDownloadId() == downloadId) {
+                if (request.getUrl().equals(downloadUrl)) {
                     return request.getDownloadState();
                 }
             }
@@ -192,7 +192,7 @@ public class DownloadRequestQueue {
     /**
      * The download has finished and remove from set.
      *
-     * @param request download reqeust
+     * @param request download request
      */
     protected void finish(DownloadRequest request) {
         synchronized (mCurrentRequests) {
@@ -212,7 +212,7 @@ public class DownloadRequestQueue {
             mDownloadQueue = null;
         }
 		
-		/* release dispathcers */
+		/* release dispatchers */
         if (mDispatchers != null) {
             stop();
 

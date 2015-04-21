@@ -9,7 +9,7 @@ import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * DownloadRequest: download request, this is designed according to Request in Andoird-Volley.
+ * DownloadRequest: download request, this is designed according to Request in Android-Volley.
  */
 public class DownloadRequest implements Comparable<DownloadRequest> {
     private static final String TAG = DownloadRequest.class.getSimpleName();
@@ -32,11 +32,6 @@ public class DownloadRequest implements Comparable<DownloadRequest> {
      * {@link android.net.ConnectivityManager#TYPE_WIFI}.
      */
     public static final int NETWORK_WIFI = 1 << 1;
-
-    /**
-     * download id of this download request
-     */
-    private int mDownloadId = -1;
 
     /**
      * retry time when downloading failed, default is 1
@@ -113,7 +108,7 @@ public class DownloadRequest implements Comparable<DownloadRequest> {
     }
 
     /**
-     * State valuse: this will used to mark the state of download request.
+     * State values: this will used to mark the state of download request.
      */
     protected enum DownloadState {
         /**
@@ -231,27 +226,6 @@ public class DownloadRequest implements Comparable<DownloadRequest> {
      */
     protected DownloadState getDownloadState() {
         return mDownloadState;
-    }
-
-    /**
-     * Set download id of this download request.
-     *
-     * @param downloadId download id
-     * @return download request
-     */
-    public DownloadRequest setDownloadId(int downloadId) {
-        mDownloadId = downloadId;
-
-        return this;
-    }
-
-    /**
-     * Get the download id of this download request.
-     *
-     * @return download id
-     */
-    protected int getDownloadId() {
-        return mDownloadId;
     }
 
     /**
@@ -411,7 +385,7 @@ public class DownloadRequest implements Comparable<DownloadRequest> {
     }
 
     /**
-     * Notifies the download request queue that this request has finished(succesfully or fail)
+     * Notifies the download request queue that this request has finished(successfully or fail)
      */
     protected void finish() {
         if (mDownloadRequestQueue != null) {

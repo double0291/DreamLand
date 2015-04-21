@@ -29,7 +29,7 @@ public class DownloadDelivery {
         mDownloadPoster.execute(new Runnable() {
             @Override
             public void run() {
-                request.getDownloadListener().onStart(request.getDownloadId(), totalBytes);
+                request.getDownloadListener().onStart(request.getUrl(), totalBytes);
             }
         });
     }
@@ -43,7 +43,7 @@ public class DownloadDelivery {
         mDownloadPoster.execute(new Runnable() {
             @Override
             public void run() {
-                request.getDownloadListener().onRetry(request.getDownloadId());
+                request.getDownloadListener().onRetry(request.getUrl());
             }
         });
     }
@@ -53,7 +53,7 @@ public class DownloadDelivery {
      *
      * @param request      download request
      * @param bytesWritten the bytes have written to file
-     * @param totalBytes   the total bytes of currnet file in downloading
+     * @param totalBytes   the total bytes of current file in downloading
      */
     protected void postProgress(final DownloadRequest request,
                                 final long bytesWritten, final long totalBytes) {
@@ -61,7 +61,7 @@ public class DownloadDelivery {
             @Override
             public void run() {
                 request.getDownloadListener().onProgress(
-                        request.getDownloadId(), bytesWritten, totalBytes);
+                        request.getUrl(), bytesWritten, totalBytes);
             }
         });
     }
@@ -76,7 +76,7 @@ public class DownloadDelivery {
             @Override
             public void run() {
                 request.getDownloadListener().onSuccess(
-                        request.getDownloadId(), request.getDestinationPath());
+                        request.getUrl(), request.getDestinationPath());
             }
         });
     }
@@ -91,7 +91,7 @@ public class DownloadDelivery {
         mDownloadPoster.execute(new Runnable() {
             @Override
             public void run() {
-                request.getDownloadListener().onFailure(request.getDownloadId(), statusCode,
+                request.getDownloadListener().onFailure(request.getUrl(), statusCode,
                         errMsg);
             }
         });

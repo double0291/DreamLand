@@ -7,25 +7,25 @@ public interface DownloadListener {
     /**
      * Invoked when downloading is started.
      */
-    void onStart(int downloadId, long totalBytes);
+    void onStart(String downloadUrl, long totalBytes);
 
     /**
      * Invoked when download retrying.
      */
-    void onRetry(int downloadId);
+    void onRetry(String downloadUrl);
 
     /**
      * Invoked when downloading is in progress.
      */
-    void onProgress(int downloadId, long bytesWritten, long totalBytes);
+    void onProgress(String downloadUrl, long bytesWritten, long totalBytes);
 
     /**
      * Invoked when downloading successfully.
      */
-    void onSuccess(int downloadId, String filePath);
+    void onSuccess(String downloadUrl, String filePath);
 
     /**
      * Invoked when downloading failed.
      */
-    void onFailure(int downloadId, int statusCode, String errMsg);
+    void onFailure(String downloadUrl, int statusCode, String errMsg);
 }
