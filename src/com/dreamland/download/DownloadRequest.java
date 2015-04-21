@@ -5,6 +5,8 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.dreamland.util.FileUtil;
+
 import java.io.File;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,9 +19,7 @@ public class DownloadRequest implements Comparable<DownloadRequest> {
     /**
      * default download directory
      */
-    private static final String DEFAULT_DIR = Environment
-            .getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
-            .getAbsolutePath();
+    private static final String DEFAULT_DIR = FileUtil.getDownloadCacheRoot();
 
     /**
      * Bit flag for {@link #setAllowedNetworkTypes} corresponding to
