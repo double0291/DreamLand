@@ -45,7 +45,8 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:launchMode="singleTop"
             android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateAlwaysHidden" />
+            android:screenOrientation="landscape"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
     </application>
 
 </manifest>
