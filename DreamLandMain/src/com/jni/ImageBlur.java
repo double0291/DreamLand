@@ -28,7 +28,8 @@ public class ImageBlur {
     public static Bitmap doBlurAfterScale(Bitmap bitmap, int scale, int radius) {
         Bitmap scalebitmap = Bitmap.createScaledBitmap(bitmap, (int) (bitmap.getWidth() / scale),
                 (int) (bitmap.getHeight() / scale), true);
-        if (bitmap != null && !bitmap.isRecycled()) {
+        // scale为1的话，createScaledBitmap直接返回原图
+        if (scale > 1 && bitmap != null && !bitmap.isRecycled()) {
             bitmap.recycle();
         }
         return doBlur(scalebitmap, radius);
