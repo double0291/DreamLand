@@ -9,13 +9,24 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.dreamland.R;
 import com.dreamland.base.BaseActivity;
 import com.dreamland.util.Constants;
 import com.dreamland.util.DisplayUtil;
+import com.dreamland.util.Logger;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+import org.json.JSONObject;
+
+public class MainActivity extends BaseActivity implements View.OnClickListener,
+        Response.Listener<JSONObject>, Response.ErrorListener {
+    private static final String VIDEO_PIC_TAG = "videoPic";
+    private static final String GAME_PIC_TAG = "gamePic";
+
     LinearLayout mContainer;
+    ImageView mVideoImageView, mGameImageView;
     int mScreenWidth, mScreenHeight;
 
     @Override
@@ -25,6 +36,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         initView();
+        sendRequest();
     }
 
     private void initView() {
@@ -64,11 +76,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             switch (card) {
                 case VIDEO:
                     text.setText(getString(R.string.video));
-                    imageView.setBackgroundResource(R.drawable.video);
+                    mVideoImageView = imageView;
                     break;
                 case GAME:
                     text.setText(getString(R.string.game));
-                    imageView.setBackgroundResource(R.drawable.game);
+                    mGameImageView = imageView;
                     break;
                 case MINE:
                     text.setText(getString(R.string.mine));
@@ -79,6 +91,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    private void sendRequest() {
+        // 请求首页的图片链接
+        JsonObjectRequest request = new JsonObjectRequest(Constants.HttpCmd.HOME_PAGE, Constants.URL_HOMEPAGE,
+                this, this);
+        app.mRequestQueue.add(request);
+    }
+
+    @Override
     public void onClick(View v) {
         switch ((Constants.HOME_CARD) v.getTag()) {
             case VIDEO:
@@ -87,6 +107,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(ListActivity.class);
                 break;
 
+        }
+    }
+
+    @Override
+    public void onErrorResponse(Constants.HttpCmd cmd, VolleyError error) {
+        Logger.d(error.toString(), false);
+    }
+
+    @Override
+    public void onResponse(Constants.HttpCmd cmd, JSONObject response) {
+        Logger.d("cmd: " + cmd + ", response: " + response.toString(), false);
+        switch (cmd) {
+            case HOME_PAGE:
+                // 加载视频card的图片
+                String videoPic = response.optString(VIDEO_PIC_TAG);
+                app.loadImage(mVideoImageView, videoPic);
+                // 加载游戏card的图片
+                String gamePic = response.optString(GAME_PIC_TAG);
+                app.loadImage(mGameImageView, gamePic);
+                break;
         }
     }
 

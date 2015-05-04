@@ -19,7 +19,19 @@ public class Constants {
 	 * 网络请求命令
 	 */
 	public static enum HttpCmd {
-		NULL, TEST;
+        HOME_PAGE,
+        GET_VIDEO_LIST,
+        GET_VIDEO_INFO,
+        GET_GAME_LIST,
+        GET_GAME_INFO,
+        NULL;
 	}
+
+    /*
+     * 网络链接
+     */
+    public static final String URL_BASE = "http://112.74.83.194";
+    // 主页
+    public static final String URL_HOMEPAGE = URL_BASE + "/app/homepage/homepage_get";
 
 }

@@ -40,9 +40,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     private void sendRequest() {
-        StringRequest request = new StringRequest(Constants.HttpCmd.TEST, "http://www.baidu.com",
-                this, this);
-        app.mRequestQueue.add(request);
+
     }
 
     public void onClick(View v) {
