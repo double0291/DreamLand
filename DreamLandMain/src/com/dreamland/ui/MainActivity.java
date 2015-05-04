@@ -49,11 +49,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         mScreenWidth = DisplayUtil.getScreenWidthInPx(this);
         mContainer = (LinearLayout) findViewById(R.id.container);
         int cardWidth = mScreenWidth * 5 / 23;
-        int leftWidth = mScreenWidth * 2 / 23;
-
-        mScreenHeight = DisplayUtil.getScreenHeightInPx(this);
         int cardHeight = 5 * cardWidth / 3;
-        int topMargin = (mScreenHeight - cardHeight) / 2;
+        int leftWidth = mScreenWidth * 2 / 23;
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
@@ -65,8 +62,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
                     cardHeight);
             // 与左边的间隔
             layoutParams.leftMargin = leftWidth;
-            // 与顶部的间隔
-            layoutParams.topMargin = topMargin;
 
             cardView.setLayoutParams(layoutParams);
             // 加tag，用于点击事件

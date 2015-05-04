@@ -51,7 +51,7 @@ public class ListActivity extends BaseActivity implements View.OnClickListener,
         mContainer = (LinearLayout) findViewById(R.id.container);
         mScreenHeight = DisplayUtil.getScreenHeightInPx(this);
         mCardHeight = mScreenHeight - 2 * DisplayUtil.dp2px(TOP_MARGIN, getResources());
-        mCardWidth = 1 * mCardHeight / 2;
+        mCardWidth = 3 * mCardHeight / 5;
     }
 
     private void initData() {
@@ -88,8 +88,6 @@ public class ListActivity extends BaseActivity implements View.OnClickListener,
             if (i == size - 1) {
                 layoutParams.rightMargin = DisplayUtil.dp2px(LEFT_MARGIN, getResources());
             }
-            // 与顶部的间隔
-            layoutParams.topMargin = DisplayUtil.dp2px(TOP_MARGIN, getResources());
 
             cardView.setLayoutParams(layoutParams);
             // 加tag，用于点击事件
