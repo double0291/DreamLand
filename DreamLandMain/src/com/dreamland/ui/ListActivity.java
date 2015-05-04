@@ -105,7 +105,17 @@ public class ListActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onClick(View view) {
-        startActivity(VideoInfoActivity.class);
+        Bundle extras = new Bundle();
+        extras.putLong("id", (Long) view.getTag());
+        switch (mCard) {
+            case VIDEO: {
+                startActivity(VideoInfoActivity.class, extras);
+                break;
+            }
+            case GAME: {
+                break;
+            }
+        }
     }
 
     @Override
@@ -125,7 +135,7 @@ public class ListActivity extends BaseActivity implements View.OnClickListener,
                     try {
                         JSONObject obj = response.getJSONObject(i);
                         VideoBrief vb = new VideoBrief();
-                        vb.id = obj.optInt("id");
+                        vb.setId(obj.optInt("id"));
                         vb.name = obj.optString("name");
                         vb.picUrl = obj.optString("pic");
                         vb.score = obj.optDouble("rate");
