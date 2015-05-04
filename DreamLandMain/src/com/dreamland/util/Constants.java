@@ -33,5 +33,9 @@ public class Constants {
     public static final String URL_BASE = "http://112.74.83.194";
     // 主页
     public static final String URL_HOMEPAGE = URL_BASE + "/app/homepage/homepage_get";
+    // 视频列表
+    public static final String URL_GET_VIDEO_LIST = URL_BASE + "/app/video/video_list";
+    // 游戏列表
+    public static final String URL_GET_GAME_LIST = URL_BASE + "/app/game/game_list";
 
 }

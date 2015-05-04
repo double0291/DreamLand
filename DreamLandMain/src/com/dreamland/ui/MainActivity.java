@@ -116,11 +116,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
     @Override
     public void onClick(View v) {
         switch ((Constants.HOME_CARD) v.getTag()) {
-            case VIDEO:
-            case GAME:
-            case MINE:
-                startActivity(ListActivity.class);
+            case VIDEO: {
+                Bundle extras = new Bundle();
+                extras.putSerializable("card", Constants.HOME_CARD.VIDEO);
+                startActivity(ListActivity.class, extras);
                 break;
+            }
+            case GAME: {
+                Bundle extras = new Bundle();
+                extras.putSerializable("card", Constants.HOME_CARD.GAME);
+                startActivity(ListActivity.class, extras);
+                break;
+            }
+            case MINE: {
+                break;
+            }
 
         }
     }

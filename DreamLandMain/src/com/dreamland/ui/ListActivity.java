@@ -9,20 +9,33 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.dreamland.R;
 import com.dreamland.base.BaseActivity;
+import com.dreamland.database.Entity;
 import com.dreamland.database.entity.VideoBrief;
+import com.dreamland.util.Constants;
 import com.dreamland.util.DisplayUtil;
+import com.dreamland.util.Logger;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ListActivity extends BaseActivity implements View.OnClickListener {
+public class ListActivity extends BaseActivity implements View.OnClickListener,
+        Response.Listener<JSONArray>, Response.ErrorListener {
     private static final int TOP_MARGIN = 50, LEFT_MARGIN = 30;
 
     private LinearLayout mContainer;
     int mScreenHeight;
     int mCardHeight, mCardWidth;
-    ArrayList<VideoBrief> mData;
+
+    Constants.HOME_CARD mCard;
+    ArrayList<Entity> mData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +45,6 @@ public class ListActivity extends BaseActivity implements View.OnClickListener {
 
         initView();
         initData();
-        updateView();
     }
 
     private void initView() {
@@ -43,11 +55,21 @@ public class ListActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initData() {
-        mData = new ArrayList<VideoBrief>(10);
-        for (int i = 1; i <= 10; i++) {
-            VideoBrief vb = new VideoBrief();
-            vb.name = "谍影重重";
-            mData.add(vb);
+        mCard = (Constants.HOME_CARD) getIntent().getSerializableExtra("card");
+        // 请求数据
+        switch (mCard) {
+            case VIDEO: {
+                JsonArrayRequest request = new JsonArrayRequest(Constants.HttpCmd.GET_VIDEO_LIST,
+                        Constants.URL_GET_VIDEO_LIST + "?page=0&num=10", this, this);
+                app.mRequestQueue.add(request);
+                break;
+            }
+            case GAME: {
+                JsonArrayRequest request = new JsonArrayRequest(Constants.HttpCmd.GET_GAME_LIST,
+                        Constants.URL_GET_GAME_LIST + "?page=0&num=10", this, this);
+                app.mRequestQueue.add(request);
+                break;
+            }
         }
     }
 
@@ -56,12 +78,10 @@ public class ListActivity extends BaseActivity implements View.OnClickListener {
 
         int size = mData.size();
         for (int i = 0; i < size; i++) {
-            VideoBrief vb = mData.get(i);
-            RelativeLayout cardView = (RelativeLayout) inflater.inflate(R.layout.card_in_list,
-                    null);
+            VideoBrief vb = (VideoBrief) mData.get(i);
+            RelativeLayout cardView = (RelativeLayout) inflater.inflate(R.layout.card_in_list, null);
             // 设置宽高
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mCardWidth,
-                    mCardHeight);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(mCardWidth, mCardHeight);
             // 与左边的间隔
             layoutParams.leftMargin = DisplayUtil.dp2px(LEFT_MARGIN, getResources());
             // 最后一个与右边有间隔
@@ -77,7 +97,7 @@ public class ListActivity extends BaseActivity implements View.OnClickListener {
             cardView.setOnClickListener(ListActivity.this);
 
             ImageView imageView = (ImageView) cardView.findViewById(R.id.image);
-            imageView.setBackgroundResource(R.drawable.video);
+            app.loadImage(imageView, vb.picUrl);
             TextView text = (TextView) cardView.findViewById(R.id.text);
             text.setText(vb.name);
 
@@ -88,5 +108,40 @@ public class ListActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         startActivity(VideoInfoActivity.class);
+    }
+
+    @Override
+    public void onErrorResponse(Constants.HttpCmd cmd, VolleyError error) {
+        Logger.d(error.toString(), false);
+    }
+
+    @Override
+    public void onResponse(Constants.HttpCmd cmd, JSONArray response) {
+        Logger.d("cmd: " + cmd + ", response: " + response.toString(), false);
+        switch (cmd) {
+            case GET_VIDEO_LIST: {
+                int length = response.length();
+                mData = new ArrayList<Entity>(length);
+
+                for (int i = 0; i < length; i++) {
+                    try {
+                        JSONObject obj = response.getJSONObject(i);
+                        VideoBrief vb = new VideoBrief();
+                        vb.id = obj.optInt("id");
+                        vb.name = obj.optString("name");
+                        vb.picUrl = obj.optString("pic");
+                        vb.score = obj.optDouble("rate");
+                        mData.add(vb);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                updateView();
+                break;
+            }
+            case GET_GAME_LIST: {
+                break;
+            }
+        }
     }
 }
