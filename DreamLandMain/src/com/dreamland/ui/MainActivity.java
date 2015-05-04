@@ -1,6 +1,7 @@
 package com.dreamland.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -17,6 +18,7 @@ import com.dreamland.base.BaseActivity;
 import com.dreamland.util.Constants;
 import com.dreamland.util.DisplayUtil;
 import com.dreamland.util.Logger;
+import com.dreamland.util.SharedPreferencer;
 
 import org.json.JSONObject;
 
@@ -74,18 +76,31 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
             ImageView imageView = (ImageView) cardView.findViewById(R.id.image);
             TextView text = (TextView) cardView.findViewById(R.id.text);
             switch (card) {
-                case VIDEO:
+                case VIDEO: {
                     text.setText(getString(R.string.video));
+                    // 先加载缓存图片
+                    String videoPic = SharedPreferencer.get(this, VIDEO_PIC_TAG, "");
+                    if (!TextUtils.isEmpty(videoPic)) {
+                        app.loadImage(imageView, videoPic);
+                    }
                     mVideoImageView = imageView;
                     break;
-                case GAME:
+                }
+                case GAME: {
                     text.setText(getString(R.string.game));
+                    // 先加载缓存图片
+                    String gamePic = SharedPreferencer.get(this, VIDEO_PIC_TAG, "");
+                    if (!TextUtils.isEmpty(gamePic)) {
+                        app.loadImage(imageView, gamePic);
+                    }
                     mGameImageView = imageView;
                     break;
-                case MINE:
+                }
+                case MINE: {
                     text.setText(getString(R.string.mine));
                     imageView.setBackgroundResource(R.drawable.mine);
                     break;
+                }
             }
             mContainer.addView(cardView);
         }
@@ -120,12 +135,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener,
         Logger.d("cmd: " + cmd + ", response: " + response.toString(), false);
         switch (cmd) {
             case HOME_PAGE:
-                // 加载视频card的图片
+                // 加载card的图片
                 String videoPic = response.optString(VIDEO_PIC_TAG);
                 app.loadImage(mVideoImageView, videoPic);
-                // 加载游戏card的图片
                 String gamePic = response.optString(GAME_PIC_TAG);
                 app.loadImage(mGameImageView, gamePic);
+                // 保存起来，下次进入的时候先读缓存
+                SharedPreferencer.save(this, VIDEO_PIC_TAG, videoPic);
+                SharedPreferencer.save(this, GAME_PIC_TAG, gamePic);
                 break;
         }
     }
