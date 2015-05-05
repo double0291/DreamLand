@@ -66,7 +66,7 @@ public class VideoInfoActivity extends BaseActivity implements View.OnClickListe
             case R.id.play:
                 Bundle extras = new Bundle();
                 extras.putString("path", mVideoUrl);
-                startActivity(VideoPlayActivity.class);
+                startActivity(VideoPlayActivity.class, extras);
                 break;
         }
     }
