@@ -138,7 +138,7 @@ public class ListActivity extends BaseActivity implements View.OnClickListener,
                         vb.setId(obj.optInt("id"));
                         vb.name = obj.optString("name");
                         vb.picUrl = obj.optString("pic");
-                        vb.score = obj.optDouble("rate");
+                        vb.score = obj.optDouble("score", 0.0);
                         mData.add(vb);
                     } catch (JSONException e) {
                         e.printStackTrace();

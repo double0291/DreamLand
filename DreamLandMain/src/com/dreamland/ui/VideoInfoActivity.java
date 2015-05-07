@@ -80,7 +80,7 @@ public class VideoInfoActivity extends BaseActivity implements View.OnClickListe
     public void onResponse(Constants.HttpCmd cmd, JSONObject response) {
         Logger.d("cmd: " + cmd + ", response: " + response.toString(), false);
 
-        double score = response.optDouble("rate");
+        double score = response.optDouble("score", 0.0);
         mScoreTextView.setText(score + "");
         String brief = response.optString("detail");
         mBriefTextView.setText(brief);
