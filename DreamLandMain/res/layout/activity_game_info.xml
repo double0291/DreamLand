@@ -25,20 +25,20 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/play"
+                android:id="@+id/download"
                 style="@style/ButtonGreen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="30dp"
-                android:text="@string/play"/>
+                android:text="@string/download"/>
 
             <ImageView
-                android:id="@+id/image"
+                android:id="@+id/icon"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/play"
+                android:layout_above="@+id/download"
                 android:layout_marginBottom="10dp" />
 
         </RelativeLayout>
@@ -52,7 +52,7 @@
                 android:id="@+id/introduction"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/video_introduction"
+                android:text="@string/game_introduction"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"/>
 
