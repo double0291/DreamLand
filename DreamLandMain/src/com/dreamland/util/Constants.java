@@ -39,5 +39,7 @@ public class Constants {
     public static final String URL_GET_GAME_LIST = URL_BASE + "/app/game/game_list";
     // 视频详情
     public static final String URL_GET_VIDEO_INFO = URL_BASE + "/app/video/video_get";
+    // 游戏详情
+    public static final String URL_GET_GAME_INFO = URL_BASE + "/app/game/game_get";
 
 }

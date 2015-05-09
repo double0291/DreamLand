@@ -48,6 +48,7 @@ public class VideoPlayActivity extends BaseActivity {
             });
         } catch (Exception e) {
             Toaster.show(this, R.string.vitamio_init_error, Toast.LENGTH_LONG);
+            finish();
         }
     }
 

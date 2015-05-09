@@ -130,6 +130,7 @@ public class ListActivity extends BaseActivity implements View.OnClickListener,
                 break;
             }
             case GAME: {
+                startActivity(GameInfoActivity.class, extras);
                 break;
             }
         }

@@ -41,6 +41,9 @@
             android:name=".ui.VideoPlayActivity"
             android:screenOrientation="landscape"/>
         <activity
+            android:name=".ui.GameInfoActivity"
+            android:screenOrientation="landscape"/>
+        <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:launchMode="singleTop"
