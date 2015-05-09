@@ -14,6 +14,9 @@
     <string name="mine">我的</string>
     <!--视频详情页-->
     <string name="play">播放</string>
-    <string name="introduction">剧情介绍</string>
+    <string name="video_introduction">剧情介绍</string>
+    <!--游戏详情页-->
+    <string name="download">下载</string>
+    <string name="game_introduction">游戏介绍</string>
 
 </resources>
