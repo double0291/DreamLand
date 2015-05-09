@@ -24,7 +24,7 @@ public class VideoInfoActivity extends BaseActivity implements View.OnClickListe
     TextView mBriefTextView, mScoreTextView;
 
     Long mId;
-    String mVideoUrl;
+    String mPlayUrl, mDownloadUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,7 @@ public class VideoInfoActivity extends BaseActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.play:
                 Bundle extras = new Bundle();
-                extras.putString("path", mVideoUrl);
+                extras.putString("path", mPlayUrl);
                 startActivity(VideoPlayActivity.class, extras);
                 break;
         }
@@ -86,7 +86,8 @@ public class VideoInfoActivity extends BaseActivity implements View.OnClickListe
         mBriefTextView.setText(brief);
         String picUrl = response.optString("pic");
         app.loadImage(mImageView, picUrl);
-        mVideoUrl = response.optString("fileLocation");
+        mPlayUrl = response.optString("playLocation");
+        mDownloadUrl = response.optString("fileLocation");
     }
 
 }
