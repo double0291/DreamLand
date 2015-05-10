@@ -1,6 +1,7 @@
 package com.dreamland.download;
 
 import android.content.Context;
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -56,11 +57,6 @@ public class DownloadRequest implements Comparable<DownloadRequest> {
      * URL of download request
      */
     private String mUrl;
-
-    /**
-     * destination file path
-     */
-    private String mDestinationFilePath;
 
     /**
      * download request queue
@@ -316,27 +312,16 @@ public class DownloadRequest implements Comparable<DownloadRequest> {
      * get the default download file path
      */
     private String getDefaultFilePath() {
-        String filename = mUrl.substring(mUrl.lastIndexOf(File.separator));
+        String filename = mUrl.substring(mUrl.lastIndexOf("=") + 1);
+
         if (TextUtils.isEmpty(filename)) {
             filename = mTimestamp + ".down";
         }
 
         File dir = new File(DEFAULT_DIR);
-        if (!dir.exists())
-            dir.mkdir();
+        if (!dir.exists()) dir.mkdir();
 
         return DEFAULT_DIR + File.separator + filename;
-    }
-
-    /**
-     * Set destination file path of this download request.
-     *
-     * @return download request
-     */
-    public DownloadRequest setDestinationPath(String filePath) {
-        mDestinationFilePath = filePath;
-
-        return this;
     }
 
     /**
@@ -345,23 +330,8 @@ public class DownloadRequest implements Comparable<DownloadRequest> {
      * @return destination file path
      */
     protected String getDestinationPath() {
-		/* if the destination file path is empty, use default file path */
-        if (TextUtils.isEmpty(mDestinationFilePath)) {
-            Log.w(TAG, "the destination file path should not be empty");
-            return getDefaultFilePath();
-        }
-
-		/* if the destination path is directory */
-        File file = new File(mDestinationFilePath);
-        if (file.isDirectory()) {
-            Log.w(TAG, "the destination file path cannot be directory");
-            return getDefaultFilePath();
-        } else {
-			/* make dirs in case */
-            file.getParentFile().mkdirs();
-        }
-
-        return mDestinationFilePath;
+        Log.d(TAG, "getDestinationPath");
+        return getDefaultFilePath();
     }
 
     /**

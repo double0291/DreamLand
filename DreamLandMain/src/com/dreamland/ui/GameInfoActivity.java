@@ -1,5 +1,7 @@
 package com.dreamland.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -23,12 +25,14 @@ import com.dreamland.util.Toaster;
 
 import org.json.JSONObject;
 
+import java.io.File;
+
 public class GameInfoActivity extends BaseActivity implements View.OnClickListener,
         Response.Listener<JSONObject>, Response.ErrorListener, DownloadListener {
     private static enum DownloadStatus {
-        STOP,
+        PAUSE,
         DOWNLOADING,
-        PAUSE;
+        DOWNLOADED;
     }
 
     ImageView mIconView;
@@ -38,7 +42,8 @@ public class GameInfoActivity extends BaseActivity implements View.OnClickListen
 
     Long mId;
     String mDownloadUrl;
-    DownloadStatus mDownloadStatus = DownloadStatus.STOP;
+    String mFilePath;
+    DownloadStatus mDownloadStatus = DownloadStatus.PAUSE;
     int mProgress; // 防止过度刷新progress
 
     @Override
@@ -101,7 +106,20 @@ public class GameInfoActivity extends BaseActivity implements View.OnClickListen
         mDownloadBtn.setBackgroundResource(R.drawable.common_btn_green);
         mDownloadBtn.setText(R.string.download);
         // status
-        mDownloadStatus = DownloadStatus.STOP;
+        mDownloadStatus = DownloadStatus.PAUSE;
+    }
+
+    /**
+     * 安装apk
+     */
+    private void installApk() {
+        if (TextUtils.isEmpty(mFilePath)) {
+            Toaster.show(this, R.string.get_apk_error, Toast.LENGTH_SHORT);
+        }
+        Uri uri = Uri.fromFile(new File(mFilePath));
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, "application/vnd.android.package-archive");
+        startActivity(intent);
     }
 
     @Override
@@ -109,14 +127,15 @@ public class GameInfoActivity extends BaseActivity implements View.OnClickListen
         switch (v.getId()) {
             case R.id.download:
                 switch (mDownloadStatus) {
-                    case STOP:
+                    case PAUSE:
                         startDownload();
                         break;
                     case DOWNLOADING:
                         cancelDownload();
                         break;
-//                    case PAUSE:
-//                        break;
+                    case DOWNLOADED:
+                        installApk();
+                        break;
                 }
                 break;
         }
@@ -163,7 +182,14 @@ public class GameInfoActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onSuccess(String downloadUrl, String filePath) {
+        Logger.d("download success", false);
+        // UI
+        mDownloadBtn.setBackgroundResource(R.drawable.common_btn_green);
+        mDownloadBtn.setText(R.string.install);
+        // status
+        mDownloadStatus = DownloadStatus.DOWNLOADED;
 
+        mFilePath = filePath;
     }
 
     @Override
