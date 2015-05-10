@@ -17,8 +17,10 @@
     <string name="video_introduction">剧情介绍</string>
     <!--游戏详情页-->
     <string name="download">下载</string>
+    <string name="cancel">暂停</string>
     <string name="game_introduction">游戏介绍</string>
     <!--异常-->
     <string name="vitamio_init_error">视频播放组件初始化错误</string>
+    <string name="get_game_download_url_error">获取游戏下载地址失败</string>
 
 </resources>

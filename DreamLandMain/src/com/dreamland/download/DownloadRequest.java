@@ -33,9 +33,9 @@ public class DownloadRequest implements Comparable<DownloadRequest> {
     public static final int NETWORK_WIFI = 1 << 1;
 
     /**
-     * retry time when downloading failed, default is 1
+     * retry time when downloading failed, default is 3
      */
-    private AtomicInteger mRetryTime = new AtomicInteger(1);
+    private AtomicInteger mRetryTime = new AtomicInteger(3);
 
     /**
      * allowed network types, default to all network types allowed
