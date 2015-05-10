@@ -65,7 +65,7 @@ public class VideoInfoActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onErrorResponse(Constants.HttpCmd cmd, VolleyError error) {
-        Logger.d(error.toString(), false);
+        Logger.e(error.toString(), false);
     }
 
     @Override
